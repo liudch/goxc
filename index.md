@@ -51,11 +51,13 @@ Note that if running from source, replace 'goxc' with 'go run goxc.go'
 Outcome
 -------
 
-Artifacts generated into:
+Artifacts generated into a folder structure as follows:
 
- (outputfolder)/(version)/(OS)/(ARCH)/appname(.exe)
+ (outputfolder)/(version)/(OS)_(ARCH)/(appname)(.exe?)
 
-By default, the output folder is ($GOBIN)/appname, and the version is 'latest', but you can specify these.
+e.g. /my/outputfolder/latest/linux_arm/myapp
+
+By default, the output folder is ($GOBIN)/(appname)-xc, and the version is 'latest', but you can specify these.
 
 e.g.
 
