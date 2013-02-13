@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+   
+   <title>goxc - goxc</title>
+   
+
+<link href="http://netdna.bootstrapcdn.com/bootswatch/2.1.1/spacelab/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body {
+padding-top: 60px;
+padding-bottom: 40px;
+}
+.sidebar-nav {
+padding: 9px 0;
+}
+select {
+   width: auto;
+}
+label {
+   display: inline-block;
+   margin-left: 1em;
+}
+legend {
+   width: auto;
+   margin-bottom: auto;
+   border: none;
+}
+fieldset {
+   border: 1px solid #E5E5E5;
+}
+</style>
+
+   <meta name="author" content="Am Laher" />
+   
+   <meta name="description" content="goxc goxc" />
+   
+
+   
+
+   <meta name="robots" content="noodp, nydir" />
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+
+<body>
+   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+         <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/goxc/">goxc</a>
+            <div class="nav-collapse collapse">
+               <ul class="nav">
+                 <li><a href="/goxc/">Home</a></li>
+                 <li><a href="/goxc/dl/latest/">Downloads</a></li>
+                 <li><a href="https://www.github.com/laher/goxc/">Code</a></li>
+                 <li><a href="https://www.github.com/laher/goxc/wiki">Wiki</a></li>
+                 <li><a href="https://www.github.com/laher/goxc/issues">Issues</a></li>
+                 <li><a href="mailto:chordial@laher.net.nz">Contact</a></li>
+               </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+      </div>
+   </div>
+
+
+
+   <div class="container">
+   <!-- <div class="container showgrid"> -->
+      
+         <div id="sidebar" class="span-6 push-1 last">
+   <div class="sidebar-module" id='gsearcher'>
+
+      <div id="searchcontrol">
+
+      </div>
+
+   </div>
+
+   <div class="sidebar-module">
+      <!--
+      <div class="title"><a href='/tags'>Tags</a></div>
+      -->
+   </div>
+
+   <div class="sidebar-module">
+   </div>
+
+   <div class="sidebar-module">
+   </div>
+</div>
+
+      
+
+      <div id="main" class="span-17">
+               <h1 id="goxc">goxc</h1>
+
+<p>goxc cross-compiles Go programs to (up to) 9 target platforms at once.</p>
+
+<p>goxc is written in Go but using <em>os.exec()</em> to call &lsquo;go build&rsquo;.</p>
+
+<p>goxc was inspired by Dave Cheney&rsquo;s Bash script <a href="https://github.com/davecheney/golang-crosscompile">golang-crosscompile</a>.
+BUT, goxc crosscompiles to all platforms at once. The artifacts are saved into a folder structure along with a markdown file of relative links.</p>
+
+<h2 id="pre-requisites">Pre-requisites</h2>
+<p>At this stage you still need to:</p>
+
+<ol>
+  <li>Use Linux (I haven&rsquo;t tested on other platforms)</li>
+  <li>Download the go source code and set up the GOROOT accordingly.</li>
+</ol>
+
+<h2 id="basic-usage">Basic Usage</h2>
+
+<h3 id="run-once">Run once:</h3>
+
+<p>To build the toolchains for all 9 platforms:</p>
+
+<pre><code>   goxc -t
+</code></pre>
+
+<h3 id="now-build-your-artifacts">Now build your artifacts</h3>
+
+<p>To build binaries for your app:</p>
+
+<pre><code>   cd path/to/app/folder
+   goxc .
+</code></pre>
+
+<h3 id="going-further">Going further</h3>
+
+<p>See &lsquo;goxc -h&rsquo; for more options.</p>
+
+<p>Note that if running from source, replace &lsquo;goxc&rsquo; with &lsquo;go run goxc.go&rsquo;</p>
+
+<h2 id="outcome">Outcome</h2>
+
+<p>Artifacts generated into:</p>
+
+<p>(outputfolder)/(version)/(OS)/(ARCH)/appname(.exe)</p>
+
+<p>By default, the output folder is ($GOBIN)/appname, and the version is &lsquo;latest&rsquo;, but you can specify these.</p>
+
+<p>e.g.</p>
+
+<pre><code>  goxc -av=0.1 -d=/home/me/myapp/ghpages/downloads/ .
+</code></pre>
+
+<h2 id="limitations">Limitations</h2>
+
+<ul>
+  <li>Currently there&rsquo;s a bug meaning you can only run goxc on the current folder.</li>
+  <li>Only tested on Linux. No idea if it would work on Win/Mac/FreeBSD</li>
+  <li>Currently goxc is only designed to build standalone Go apps without linked libraries. You can try but YMMV</li>
+</ul>
+
+<h2 id="todo">Todo</h2>
+
+<ul>
+  <li>Fix bug to allow building of a different directory (other than current working directory)</li>
+  <li>&lsquo;specify artifact folder&rsquo; option</li>
+  <li>&lsquo;specify version name&rsquo; option</li>
+  <li>&lsquo;generate Downloads page&rsquo; option</li>
+  <li>&lsquo;download golang source&rsquo; option?</li>
+  <li>building .so/.dll shared libraries?</li>
+</ul>
+
+<h2 id="see-also">See also</h2>
+
+<p>See <a href="https://github.com/laher/golang-crosscompile">my golang-crosscompile fork</a> for an added &lsquo;build-all&rsquo; task similar to goxc.</p>
+
+      </div>
+   </div>
+
+   <hr />
+<div class="container">
+<footer>
+<span  title="Content licenced under Creative Commons by-nc-sa 3.0">
+   <a title="Content licenced under Creative Commons by-nc-sa 3.0" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">&copy;</a>
+   2012-2013 Am Laher
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://laher.github.com/">GitHub</a>
+</footer>
+</div>
+
+</body>
+</html>
