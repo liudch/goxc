@@ -1,6 +1,6 @@
 ---
 layout: default
-title: goxc
+title: cross-compile your Go programs to all 9 platforms at once
 posts: 5
 ---
 
@@ -9,7 +9,7 @@ goxc
 
 goxc cross-compiles Go programs to (up to) 9 target platforms at once.
 
-goxc is written in Go but using *os.exec()* to call 'go build'.
+goxc is written in Go but uses *os.exec()* to call 'go build' with the appropriate flags & env variables for each supported platform.
 
 goxc was inspired by Dave Cheney's Bash script [golang-crosscompile](https://github.com/davecheney/golang-crosscompile).
 BUT, goxc crosscompiles to all platforms at once. The artifacts are saved into a folder structure along with a markdown file of relative links.
