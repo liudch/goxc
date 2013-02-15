@@ -1,24 +1,22 @@
 goxc
 ====
 
-goxc cross-compiles Go programs to (up to) 9 target platforms at once.
+[goxc](http://www.laher.net.nz/goxc) cross-compiles Go programs to (up to) 9 target platforms at once.
 
 goxc is written in Go but uses *os.exec* to call 'go build' with the appropriate flags & env variables for each supported platform.
 
 goxc was inspired by Dave Cheney's Bash script [golang-crosscompile](https://github.com/davecheney/golang-crosscompile).
 BUT, goxc crosscompiles to all platforms at once. The artifacts are saved into a folder structure along with a markdown file of relative links.
 
-Pre-requisites
+Installation
 --------------
-At this stage you still need to:
+goxc requires the go source and the go toolchain.
 
- 1. Preferably use Linux (I haven't tested on other platforms)
- 2. Download the go source code and set up the GOROOT accordingly.
- 3. Download goxc below for your platform and place it on your system's [PATH](http://en.wikipedia.org/wiki/PATH_%28variable%29)
+ 1. [Install go from source](http://golang.org/doc/install/source). (Requires 'hg' and gcc (or MinGW))
 
-Downloads
----------
-[Latest binaries](http://laher.github.com/goxc/dl/latest/) for Linux, Mac, Windows.
+ 2. Install goxc:
+
+            go get github.com/laher/goxc
 
 Basic Usage
 -----------
@@ -40,7 +38,13 @@ To build binaries for your app:
 
 See 'goxc -h' for more options.
 
-Note that if running from source, replace 'goxc' with 'go run goxc.go'
+e.g. To restrict by OS and Architecture:
+
+      goxc -os=windows -arch=amd64 .
+
+e.g. To set a destination root folder:
+
+      goxc -d=my/jekyll/site/downloads .
 
 Outcome
 -------
@@ -61,8 +65,25 @@ Limitations
 -----------
 
  * Currently there's a bug meaning you can only run goxc on the current folder.
- * Only tested on Linux. No idea if it would work on Win/Mac/FreeBSD
+ * Only tested on Linux & Windows. Please test on Mac/FreeBSD
  * Currently goxc is only designed to build standalone Go apps without linked libraries. You can try but YMMV
+
+License
+-------
+
+   Copyright 2013 Am Laher
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 
 Todo
 ----
@@ -76,5 +97,4 @@ Todo
 
 See also
 --------
-
-See [my golang-crosscompile fork](https://github.com/laher/golang-crosscompile) for an added 'build-all' task similar to goxc.
+See also [my golang-crosscompile fork](https://github.com/laher/golang-crosscompile) for an added 'build-all' task similar to goxc.
