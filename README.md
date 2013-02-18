@@ -8,7 +8,7 @@ goxc is written in Go but uses *os.exec* to call 'go build' with the appropriate
 goxc was inspired by Dave Cheney's Bash script [golang-crosscompile](https://github.com/davecheney/golang-crosscompile).
 BUT, goxc crosscompiles to all platforms at once. The artifacts are saved into a folder structure along with a markdown file of relative links.
 
-Thanks to [dchest](https://github.com/dchest) for the tidy-up and adding the zip feature, and [matrixik](https://bitbucket.org/matrixik) for his improvements.
+Thanks to [dchest](https://github.com/dchest) for the tidy-up and adding the zip feature, and [matrixik](https://bitbucket.org/matrixik) for his improvements and input.
 
 Installation
 --------------
@@ -23,7 +23,7 @@ goxc requires the go source and the go toolchain.
 Basic Usage
 -----------
 
-### Run once:
+### Run once
 
 To build the toolchains for all 9 platforms:
 
@@ -45,11 +45,13 @@ e.g. To restrict by OS and Architecture:
 
 e.g. To set a destination root folder and artifact version number:
 
-      goxc -d=my/jekyll/site/downloads -v=0.1.1 .
+      goxc -d=my/jekyll/site/downloads -pv=0.1.1 .
 
 e.g. To output non-zipped binaries into folders:
 
       goxc -z=false .
+
+'Package version' can be automatically parsed from a constant in your source called PKG_VERSION.
 
 Outcome
 -------
@@ -64,7 +66,7 @@ By default, the output folder is ($GOBIN)/(appname)-xc, and the version is 'late
 
 e.g.
 
-      goxc -av=0.1 -d=/home/me/myapp/ghpages/downloads/ .
+      goxc -pv=0.1 -d=/home/me/myapp/ghpages/downloads/ .
 
 
 If non-zipped, artifacts generated into a folder structure as follows:
@@ -74,7 +76,7 @@ If non-zipped, artifacts generated into a folder structure as follows:
 Limitations
 -----------
 
- * Only tested on Linux & Windows. Please test on Mac/FreeBSD
+ * Tested on Linux, Windows (and Mac during an early version). Please test on Mac/FreeBSD
  * Currently goxc is only designed to build standalone Go apps without linked libraries. You can try but YMMV
 
 License
@@ -97,17 +99,32 @@ License
 Todo
 ----
 
- * Manifest file for setting up default settings. Preferably manifest.json/goxc.json, similar to Chrome extensions or npm packages.
- * "Copy resources" option for INSTALL, READMEs, LICENSE, configs etc
+Contributions welcome via pull requests, thanks. Please use github 'issues' for discussion.
+
+ * ~~Done v0.1.6: Use go/parse package to interpret PKG_VERSION variable and such.~~
+ * Make PKG_VERSION constant name configurable.
+ * Config file for setting up default settings. Preferably json. Support use of local overrides file (my.xxx.json). Similar to Chrome extensions or npm packages? See [issue 3](https://github.com/laher/goxc/issues/3)
+ * Respect +build flags inside file comments (just like 'go build' does)
+ * "Copy resources" option for INSTALL, READMEs, LICENSE, configs etc ( ~~Done v0.1.5: for zips.~~ Not done for non-zipped binaries). See [issue 4](https://github.com/laher/goxc/issues/4)
  * Much more error handling and potentially stop-on-error=true flag
- * Unit Tests!!
- * Configurable 'downloads' page: name, format (e.g. markdown/html/ReST) & header/footer.
- * Artifact types: tgz, maybe packaging too (.deb/.rpm/.pkg...).
- * Automatically build target toolchain if missing? (need to work out detection mechanism)
- * 'download golang source' option?
+ * Refactoring: Utilise/copy from [gotools source](http://golang.org/src/cmd/go/build.go)
+ * ~~Done v0.1.6: Refactoring: use a struct for all the options~~
+ * Refactoring: Start splitting functionality into separate packages, e.g. zipping, build, build-toolchain, config, ...
+ * More Unit Tests!!
+ * Run package's unit tests as part of build? (configurable)
+ * Configurable 'downloads' page: name, format (e.g. markdown,html,ReST,jekyll-markdown), header/footer?
+ * Generate 'downloads overview' page (append each version's page as a relative link) ?
+ * Artifact types: ~~Done: zip,~~ tgz, ...
+ * Packaging (source deb & .deb, .srpm & .rpm, .pkg? ...).
+ * Improve sanity check: automatically build target toolchain if missing? (need to work out detection mechanism)
+ * Improve sanity check: 'download golang source' option?
+ * Improve sanity check: warn about non-core libraries and binary dependencies?
  * building .so/.dll shared libraries?
  * One day: Build plugins (for OS-specific wizardry and stuff)? Pre- and post-processing scripts?
+ * Maybe Someday: Investigate [forking and ?] hooking directly into the [gotools source](http://golang.org/src/cmd/go/build.go), instead of using os.exec. Fork would be required due to non-exported functions.
+ * Maybe someday: Use goroutines to speed up 'goxc -t'
+ * Maybe someday: pre- & post-build scripts to run?
 
 See also
 --------
-See also [my golang-crosscompile fork](https://github.com/laher/golang-crosscompile) for an added 'build-all' task similar to goxc.
+See also [my golang-crosscompile fork](https://github.com/laher/golang-crosscompile) for an added 'go-build-all' task similar to goxc.
