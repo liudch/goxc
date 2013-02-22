@@ -1,0 +1,1 @@
+cp ../goxc/README.md .
